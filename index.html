@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopywritingExpert — Методичка по профессиональному копирайтингу</title>
+    <meta name="description" content="Системная методология копирайтинга. 8 глав, практические упражнения, готовые шаблоны. Гарантия возврата 7 дней.">
+    <meta property="og:title" content="CopywritingExpert — Копирайтинг как двигатель продукта">
+    <meta property="og:description" content="Системная методология создания продающих текстов">
+    <meta property="og:type" content="product">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1A1A2E',
+                            darker: '#16213E',
+                            orange: '#FF8C00',
+                            yellow: '#FFD700',
+                            light: '#F5F5F5',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #FF8C00 0%, #FFA500 50%, #FFD700 100%);
+        }
+        
+        .bonus-gradient {
+            background: linear-gradient(135deg, #FF8C00 0%, #FFA500 100%);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #FF7F00 0%, #E67300 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .chapter-card {
+            border-left: 4px solid #FF8C00;
+            transition: all 0.3s ease;
+        }
+        .chapter-card:hover {
+            background: #FFF5E6;
+            transform: translateX(5px);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-answer.open {
+            max-height: 300px;
+        }
+        
+        .book-mockup {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
+            box-shadow: 
+                -15px 15px 30px rgba(0,0,0,0.3),
+                inset -5px 0 15px rgba(0,0,0,0.2);
+            transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        .book-mockup:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FF8C00;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #FF8C00;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center">
+                <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                <span class="text-brand-orange font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#content" class="nav-link text-white/80 hover:text-white text-sm font-medium">Содержание</a>
+                <a href="#about" class="nav-link text-white/80 hover:text-white text-sm font-medium">Об авторе</a>
+                <a href="#bonuses" class="nav-link text-white/80 hover:text-white text-sm font-medium">Бонусы</a>
+                <a href="#checkout" class="btn-primary text-white px-6 py-2.5 rounded-lg font-semibold text-sm">Купить</a>
+            </nav>
+            
+            <button id="mobileMenuBtn" class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brand-darker border-t border-white/10">
+            <div class="px-6 py-4 flex flex-col gap-4">
+                <a href="#content" class="text-white/80 hover:text-white">Содержание</a>
+                <a href="#about" class="text-white/80 hover:text-white">Об авторе</a>
+                <a href="#bonuses" class="text-white/80 hover:text-white">Бонусы</a>
+                <a href="#checkout" class="btn-primary text-white px-6 py-2.5 rounded-lg font-semibold text-center">Купить</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-gradient min-h-screen flex items-center pt-24 pb-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-brand-orange rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-brand-yellow rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="fade-in">
+                <h1 class="text-white font-serif font-black text-4xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">
+                    Копирайтинг —<br>
+                    <span class="text-brand-orange">двигатель</span> продукта
+                </h1>
+                <p class="text-white/70 text-lg md:text-xl mb-8 max-w-xl leading-relaxed">
+                    Системная методология создания продающих текстов, которые превращают читателей в покупателей
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#checkout" class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg text-center">
+                        Получить методичку — 499 руб.
+                    </a>
+                    <a href="https://demo.copywritingexpert.com" target="_blank" rel="noopener" class="border-2 border-white/30 text-white px-8 py-4 rounded-lg font-semibold text-center hover:bg-white/10 transition-all">
+                        Смотреть демо-приложение →
+                    </a>
+                </div>
+                <div class="mt-8 flex items-center gap-6 text-white/60 text-sm">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>8 глав</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>PDF формат</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>Гарантия 7 дней</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center fade-in">
+                <div class="book-mockup float-animation w-64 h-80 md:w-80 md:h-96 rounded-lg flex items-center justify-center p-8 relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-lg"></div>
+                    <div class="relative z-10 text-center">
+                        <div class="text-white/40 text-xs uppercase tracking-widest mb-4">Методичка</div>
+                        <div class="text-white font-serif font-bold text-2xl md:text-3xl leading-tight mb-4">
+                            Копирайтинг<br>— Двигатель<br>Продукта
+                        </div>
+                        <div class="w-12 h-0.5 bg-white/40 mx-auto my-4"></div>
+                        <div class="text-white/60 text-sm">CopywritingExpert</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAIN POINTS -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-brand-dark font-serif font-bold text-3xl md:text-5xl mb-4">
+                    Почему ваши тексты не продают?
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Три главные проблемы, с которыми сталкивается каждый копирайтер
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-2xl p-8 card-hover fade-in">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-red-500 text-3xl font-bold">✕</span>
+                    </div>
+                    <h3 class="text-brand-dark font-bold text-xl mb-3">Текст не цепляет</h3>
+                    <p class="text-gray-600 leading-relaxed">Ваши тексты скучные, и их никто не читает до конца. Конверсия стремится к нулю.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 card-hover fade-in">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-red-500 text-3xl font-bold">✕</span>
+                    </div>
+                    <h3 class="text-brand-dark font-bold text-xl mb-3">Нет системы</h3>
+                    <p class="text-gray-600 leading-relaxed">Вы пишете «как получится», без проверенной методологии и структуры.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 card-hover fade-in">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-red-500 text-3xl font-bold">✕</span>
+                    </div>
+                    <h3 class="text-brand-dark font-bold text-xl mb-3">Нет измеримого результата</h3>
+                    <p class="text-gray-600 leading-relaxed">Не понимаете, работает ли ваш копирайтинг на бизнес и приносит ли прибыль.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="py-20 bg-blue-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-brand-dark font-serif font-bold text-3xl md:text-5xl mb-4">
+                    Что вы получите после изучения методички
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="flex gap-4 fade-in">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-dark mb-1">Систему вместо хаоса</h3>
+                        <p class="text-gray-600">Пошаговый алгоритм создания текстов от идеи до готового продукта</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 fade-in">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-dark mb-1">Научный подход</h3>
+                        <p class="text-gray-600">Методы, основанные на психологии влияния и поведенческой экономике</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 fade-in">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-dark mb-1">Практические инструменты</h3>
+                        <p class="text-gray-600">Готовые шаблоны, чек-листы и фреймворки для немедленного применения</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 fade-in">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-dark mb-1">Измеримый результат</h3>
+                        <p class="text-gray-600">Научитесь отслеживать эффективность текстов и оптимизировать их</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 fade-in">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-dark mb-1">Современные техники</h3>
+                        <p class="text-gray-600">SEO, UX-писательство, микротексты для интерфейсов</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 fade-in">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-dark mb-1">Немедленная применимость</h3>
+                        <p class="text-gray-600">Теория переплетена с упражнениями для внедрения знаний в работу</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-brand-dark font-serif font-bold text-3xl md:text-5xl mb-4">
+                    Что внутри методички
+                </h2>
+                <p class="text-gray-600 text-lg">8 глав системного копирайтинга</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">01</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">Системный копирайтинг: руководство по созданию эффективных текстов</h3>
+                            <p class="text-gray-600">Основа методологии: от хаоса к системе</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">02</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">Психология отклика: научный аппарат убеждения</h3>
+                            <p class="text-gray-600">Принципы Роберта Чалдини и концепция пре-убеждения</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">03</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">Архитектура заголовков: конструирование продающих предложений</h3>
+                            <p class="text-gray-600">Формулы, которые цепляют с первых слов</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">04</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">Практическая стилистика: от канцелярита к живому слову</h3>
+                            <p class="text-gray-600">Языковая гигиена по Норе Галь</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">05</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">Веб-юзабилити текста: архитектура внимания и сканирования</h3>
+                            <p class="text-gray-600">Паттерны поведения пользователей в цифровой среде</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">06</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">UX-писательство: текст как функциональный элемент интерфейса</h3>
+                            <p class="text-gray-600">Микрокопи, сообщения об ошибках, CTA</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">07</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">Синтез и практическое применение: от черновика до готового интерфейса</h3>
+                            <p class="text-gray-600">Полный цикл разработки текста</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card bg-gray-50 rounded-r-lg p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-orange font-bold text-lg">08</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-brand-dark mb-1">SEO и семантика</h3>
+                            <p class="text-gray-600">Продвижение через поисковые системы на основе намерений и факторов E-E-A-T</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-20 bg-brand-dark text-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="font-serif font-bold text-3xl md:text-5xl mb-4">От автора</h2>
+                <div class="w-20 h-1 bg-brand-orange mx-auto"></div>
+            </div>
+            
+            <div class="space-y-6 text-lg leading-relaxed text-white/90 fade-in">
+                <p>
+                    Этот курс представляет собой современную и системную методологию копирайтинга, объединяющую проверенные временем классические принципы текста с актуальными данными современности.
+                </p>
+                
+                <p>В нём синтезированы:</p>
+                <ul class="space-y-3 pl-6">
+                    <li class="flex gap-3">
+                        <span class="text-brand-orange font-bold">•</span>
+                        <span>Философия «Большой идеи» Дэвида Огилви</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-brand-orange font-bold">•</span>
+                        <span>Научная база психологии влияния Роберта Чалдини (включая передовую концепцию пре-убеждения)</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-brand-orange font-bold">•</span>
+                        <span>Практический алгоритм «скользкой горки» Джозефа Шугермана</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-brand-orange font-bold">•</span>
+                        <span>Строгая языковая гигиена Норы Галь</span>
+                    </li>
+                </ul>
+                
+                <p>
+                    Такой комплексный подход позволяет перейти от интуитивного написания текстов к управляемому процессу, где каждый этап подчинен единой цели — получению измеримого результата от читателя.
+                </p>
+                
+                <p>
+                    Актуальность курса обеспечивается глубоким погружением в современные реалии цифровой среды: от паттернов сканирования контента пользователями и требований поисковых систем до тонкостей UX-писательства.
+                </p>
+                
+                <p>
+                    Практическая ценность курса заключается в его немедленной применимости: теория плотно переплетена с конкретными упражнениями, позволяющими сразу внедрять полученные знания в работу.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BONUSES -->
+    <section id="bonuses" class="py-20 bonus-gradient">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-white font-serif font-bold text-3xl md:text-5xl mb-4">
+                    Бонус при покупке сегодня
+                </h2>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-2xl fade-in">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="inline-block bg-brand-orange/10 text-brand-orange px-4 py-2 rounded-full text-sm font-bold mb-4">
+                             ПОДАРОК
+                        </div>
+                        <h3 class="text-brand-dark font-serif font-bold text-3xl mb-4">Демо-приложение</h3>
+                        <p class="text-gray-600 text-lg mb-6">
+                            Интерактивное приложение для отработки навыков копирайтинга в реальном времени
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                <span class="text-gray-700">Практические упражнения после каждой главы</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                <span class="text-gray-700">Проверка знаний в реальном времени</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                <span class="text-gray-700">Готовые шаблоны для скачивания</span>
+                            </li>
+                        </ul>
+                        <a href="https://demo.copywritingexpert.com" target="_blank" rel="noopener" class="inline-block bg-brand-dark text-white px-8 py-4 rounded-lg font-bold hover:bg-brand-darker transition-all">
+                            Попробовать бесплатно →
+                        </a>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-48 h-64 bg-gradient-to-br from-brand-orange to-brand-yellow rounded-lg shadow-xl flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-5xl mb-2"></div>
+                                <div class="font-bold">DEMO APP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-brand-dark font-serif font-bold text-3xl md:text-5xl mb-4">
+                    Стоимость обучения
+                </h2>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-8 md:p-12 border-2 border-brand-orange shadow-xl fade-in">
+                <div class="text-center mb-8">
+                    <div class="inline-block bg-brand-orange/10 text-brand-orange px-4 py-2 rounded-full text-sm font-bold mb-4">
+                        МЕТОДИЧКА
+                    </div>
+                    <h3 class="font-serif font-bold text-2xl md:text-3xl text-brand-dark mb-2">
+                        Копирайтинг — Двигатель Продукта
+                    </h3>
+                </div>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span class="text-gray-700">8 глав системного копирайтинга</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span class="text-gray-700">Практические упражнения</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span class="text-gray-700">Готовые шаблоны и чек-листы</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span class="text-gray-700">Доступ к демо-приложению</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span class="text-gray-700">Обновления и дополнения</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-8">
+                    <div class="text-5xl md:text-6xl font-bold text-brand-orange mb-2">499 руб.</div>
+                </div>
+                
+                <a href="#checkout" class="btn-primary block text-white text-center px-8 py-4 rounded-lg font-bold text-lg">
+                    Купить сейчас
+                </a>
+                
+                <div class="mt-6 text-center text-sm text-gray-500 space-y-1">
+                    <div>🔒 Оплата защищена SSL-шифрованием</div>
+                    <div>⚡ Моментальная доставка на email</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHECKOUT -->
+    <section id="checkout" class="py-20 bg-gray-100">
+        <div class="max-w-2xl mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-brand-dark font-serif font-bold text-3xl md:text-5xl mb-4">
+                    Оформить покупку
+                </h2>
+                <p class="text-gray-600">Заполните форму, и методичка придет на ваш email</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-8 md:p-10 shadow-xl fade-in">
+                <form id="checkoutForm" class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Ваше имя *</label>
+                        <input type="text" id="name" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-800" placeholder="Иван Иванов">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Email (на него придет методичка) *
+                        </label>
+                        <input type="email" id="email" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-800" placeholder="example@mail.com">
+                        <p class="text-sm text-gray-500 mt-1">Методичка будет отправлена на этот адрес</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Номер телефона</label>
+                        <input type="tel" id="phone" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-800" placeholder="+7 (999) 123-45-67">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full text-white px-8 py-4 rounded-lg font-bold text-lg">
+                        Оплатить 499 руб. →
+                    </button>
+                    
+                    <div class="text-sm text-gray-500 space-y-2 pt-4 border-t">
+                        <div class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>Нажимая кнопку, вы соглашаетесь с условиями оферты и политикой конфиденциальности</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>Методичка придет на email в течение 5 минут после оплаты</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span>Гарантия возврата в течение 7 дней</span>
+                        </div>
+                    </div>
+                </form>
+                
+                <div id="successMessage" class="hidden text-center py-8">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-brand-dark mb-2">Спасибо за покупку!</h3>
+                    <p class="text-gray-600">Методичка отправлена на ваш email. Проверьте почту.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GUARANTEE -->
+    <section class="py-20 bg-brand-dark text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center fade-in">
+            <div class="w-24 h-24 bg-brand-orange/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-12 h-12 text-brand-orange" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <h2 class="font-serif font-bold text-3xl md:text-5xl mb-6">Гарантия возврата денег</h2>
+            <p class="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto">
+                Если в течение 7 дней после покупки вы поймете, что методичка вам не подходит — мы вернем 100% стоимости.
+            </p>
+            <p class="text-lg text-brand-orange font-semibold mt-4">Без вопросов и бюрократии.</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-brand-dark font-serif font-bold text-3xl md:text-5xl mb-4">
+                    Частые вопросы
+                </h2>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="border-2 border-gray-200 rounded-lg overflow-hidden fade-in">
+                    <button class="faq-btn w-full text-left px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-brand-dark">В каком формате методичка?</span>
+                        <svg class="w-5 h-5 text-brand-orange faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6 bg-white">
+                        <p class="py-4 text-gray-600">PDF, около 120 страниц, можно читать с любого устройства — компьютера, планшета или телефона.</p>
+                    </div>
+                </div>
+                
+                <div class="border-2 border-gray-200 rounded-lg overflow-hidden fade-in">
+                    <button class="faq-btn w-full text-left px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-brand-dark">Как быстро я получу доступ?</span>
+                        <svg class="w-5 h-5 text-brand-orange faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6 bg-white">
+                        <p class="py-4 text-gray-600">Методичка придет на email сразу после оплаты, в течение 5 минут.</p>
+                    </div>
+                </div>
+                
+                <div class="border-2 border-gray-200 rounded-lg overflow-hidden fade-in">
+                    <button class="faq-btn w-full text-left px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-brand-dark">Подойдет ли новичкам?</span>
+                        <svg class="w-5 h-5 text-brand-orange faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6 bg-white">
+                        <p class="py-4 text-gray-600">Да, материал подается от простого к сложному. Подойдет как начинающим, так и практикующим копирайтерам.</p>
+                    </div>
+                </div>
+                
+                <div class="border-2 border-gray-200 rounded-lg overflow-hidden fade-in">
+                    <button class="faq-btn w-full text-left px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-brand-dark">Есть ли практические задания?</span>
+                        <svg class="w-5 h-5 text-brand-orange faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6 bg-white">
+                        <p class="py-4 text-gray-600">Да, после каждой главы — упражнения для закрепления материала и готовые шаблоны для работы.</p>
+                    </div>
+                </div>
+                
+                <div class="border-2 border-gray-200 rounded-lg overflow-hidden fade-in">
+                    <button class="faq-btn w-full text-left px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <span class="font-bold text-brand-dark">Можно ли вернуть деньги?</span>
+                        <svg class="w-5 h-5 text-brand-orange faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6 bg-white">
+                        <p class="py-4 text-gray-600">Да, в течение 7 дней без вопросов. Просто напишите нам, и мы вернем полную стоимость.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-gradient py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <a href="#" class="inline-block mb-2">
+                        <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                        <span class="text-brand-dark font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+                    </a>
+                    <p class="text-white/90 text-sm">© 2026 Copywriting Expert Academy | Все права защищены</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+                    <a href="privacy.html" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Политика конфиденциальности
+                    </a>
+                    <a href="https://t.me/shundyquru" target="_blank" rel="noopener" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Контакты: @shundyquru
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const answer = btn.nextElementSibling;
+                const icon = btn.querySelector('.faq-icon');
+                
+                // Close others
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    if (a !== answer) a.classList.remove('open');
+                });
+                document.querySelectorAll('.faq-icon').forEach(i => {
+                    if (i !== icon) i.style.transform = 'rotate(0deg)';
+                });
+                
+                // Toggle current
+                answer.classList.toggle('open');
+                icon.style.transform = answer.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            });
+        });
+
+        // Form submission
+        const checkoutForm = document.getElementById('checkoutForm');
+        const successMessage = document.getElementById('successMessage');
+
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Пожалуйста, введите корректный email адрес');
+                return;
+            }
+            
+            // Here you would integrate with payment system
+            // For now, simulate success
+            console.log('Order:', { name, email, phone: document.getElementById('phone').value });
+            
+            // Hide form, show success
+            checkoutForm.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
