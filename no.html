@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата не прошла — CopywritingExpert</title>
+    <meta name="description" content="Платеж не был выполнен. Попробуйте снова или свяжитесь с поддержкой">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1A1A2E',
+                            darker: '#16213E',
+                            orange: '#FF8C00',
+                            yellow: '#FFD700',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #FF8C00 0%, #FFA500 50%, #FFD700 100%);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #FF7F00 0%, #E67300 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(26, 26, 46, 0.4);
+        }
+        
+        .btn-outline {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        
+        @keyframes errorPulse {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes xmark {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .error-circle {
+            animation: errorPulse 0.8s ease-out forwards;
+        }
+        
+        .xmark-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: xmark 0.6s ease-out 0.4s forwards;
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        .reason-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #FF8C00;
+        }
+        .reason-card:hover {
+            transform: translateX(5px);
+            background: #FFF5E6;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- HEADER -->
+    <header class="bg-brand-dark/95 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center">
+            <a href="index.html" class="flex items-center">
+                <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                <span class="text-brand-orange font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ERROR SECTION -->
+    <section class="hero-gradient min-h-screen flex items-center py-20 relative overflow-hidden">
+        <!-- Background decorations -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-red-500 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <!-- Error Icon -->
+            <div class="flex justify-center mb-8 fade-in-up">
+                <div class="error-circle w-32 h-32 bg-red-500 rounded-full flex items-center justify-center shadow-2xl">
+                    <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path class="xmark-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Main Message -->
+            <div class="text-center mb-12 fade-in-up delay-1">
+                <h1 class="text-white font-serif font-bold text-4xl md:text-6xl mb-4">
+                    Оплата не прошла
+                </h1>
+                <p class="text-white/80 text-xl md:text-2xl">
+                    К сожалению, платеж не был выполнен
+                </p>
+            </div>
+            
+            <!-- Error Details Card -->
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-2xl mb-8 fade-in-up delay-2">
+                <!-- Order Info -->
+                <div class="bg-red-50 border-l-4 border-red-500 rounded-r-lg p-6 mb-8">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <h3 class="font-bold text-red-900 mb-1 text-lg">Платеж отклонен</h3>
+                            <p class="text-red-800">
+                                Средства не были списаны с вашего счета. Попробуйте совершить оплату еще раз или выберите другой способ оплаты.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Details -->
+                <div class="bg-gray-50 rounded-xl p-6 mb-8">
+                    <h3 class="font-bold text-brand-dark mb-4 text-lg">Детали попытки оплаты:</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Номер попытки</div>
+                            <div class="font-mono font-bold text-brand-dark" id="attemptId">#CW-FAILED-001</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Дата попытки</div>
+                            <div class="font-bold text-brand-dark" id="attemptDate">—</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Email</div>
+                            <div class="font-bold text-brand-dark" id="attemptEmail">—</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Сумма</div>
+                            <div class="font-bold text-brand-orange text-xl">499 руб.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Possible Reasons -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-brand-dark mb-4 text-lg">Возможные причины отказа:</h3>
+                    <div class="space-y-3">
+                        <div class="reason-card bg-gray-50 rounded-r-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <span class="text-brand-orange font-bold text-lg">1.</span>
+                                <div>
+                                    <div class="font-semibold text-brand-dark">Недостаточно средств на карте</div>
+                                    <div class="text-sm text-gray-600">Проверьте баланс вашего счета</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reason-card bg-gray-50 rounded-r-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <span class="text-brand-orange font-bold text-lg">2.</span>
+                                <div>
+                                    <div class="font-semibold text-brand-dark">Неверно введенные данные карты</div>
+                                    <div class="text-sm text-gray-600">Проверьте номер карты, срок действия и CVV-код</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reason-card bg-gray-50 rounded-r-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <span class="text-brand-orange font-bold text-lg">3.</span>
+                                <div>
+                                    <div class="font-semibold text-brand-dark">Карта не поддерживает онлайн-платежи</div>
+                                    <div class="text-sm text-gray-600">Некоторые карты требуют активации интернет-платежей в банке</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reason-card bg-gray-50 rounded-r-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <span class="text-brand-orange font-bold text-lg">4.</span>
+                                <div>
+                                    <div class="font-semibold text-brand-dark">Превышен лимит операций</div>
+                                    <div class="text-sm text-gray-600">Банк может ограничивать количество онлайн-платежей</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reason-card bg-gray-50 rounded-r-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <span class="text-brand-orange font-bold text-lg">5.</span>
+                                <div>
+                                    <div class="font-semibold text-brand-dark">Технический сбой платежной системы</div>
+                                    <div class="text-sm text-gray-600">Попробуйте повторить попытку через несколько минут</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="payment.html" id="retryButton" class="btn-primary flex-1 text-white text-center px-8 py-4 rounded-xl font-bold text-lg no-underline">
+                        Попробовать снова
+                    </a>
+                    <a href="index.html" class="btn-outline flex-1 text-white text-center px-8 py-4 rounded-xl font-semibold text-lg no-underline">
+                        На главную
+                    </a>
+                </div>
+            </div>
+            
+            <!-- What to Do Section -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-10 border border-white/20 mb-8 fade-in-up delay-3">
+                <h2 class="text-white font-serif font-bold text-3xl mb-8 text-center">Что делать дальше?</h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Проверьте данные карты</h3>
+                            <p class="text-white/70">Убедитесь, что номер карты, срок действия и CVV-код введены правильно</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Проверьте баланс</h3>
+                            <p class="text-white/70">Убедитесь, что на карте достаточно средств для оплаты (499 руб. + комиссия)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Попробуйте другую карту</h3>
+                            <p class="text-white/70">Используйте карту другого банка или другой способ оплаты (СБП, электронный кошелек)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">4</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Свяжитесь с банком</h3>
+                            <p class="text-white/70">Если проблема повторяется, уточните в банке, нет ли ограничений на онлайн-платежи</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Support Section -->
+            <div class="bg-white rounded-2xl p-8 text-center fade-in-up delay-4">
+                <h3 class="font-serif font-bold text-2xl text-brand-dark mb-3">Нужна помощь?</h3>
+                <p class="text-gray-600 mb-6">
+                    Если у вас не получается совершить оплату или возникли вопросы — мы поможем разобраться
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://t.me/shundyquru" target="_blank" class="inline-flex items-center justify-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                        <span>✈️</span>
+                        <span>Написать в Telegram</span>
+                    </a>
+                    <a href="mailto:support@copywritingexpert.com" class="inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                        <span>📧</span>
+                        <span>Написать на email</span>
+                    </a>
+                </div>
+                
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg text-left">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        <div class="text-sm text-blue-900">
+                            <strong>Совет:</strong> При обращении в поддержку укажите номер попытки оплаты 
+                            (<span id="supportAttemptId" class="font-mono">#CW-FAILED-001</span>) — это поможет быстрее решить проблему.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guarantee Reminder -->
+            <div class="mt-8 text-center fade-in-up delay-4">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">
+                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-white text-sm">Ваши данные в безопасности — мы не храним информацию о картах</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-gradient py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <a href="index.html" class="inline-block mb-2">
+                        <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                        <span class="text-brand-dark font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+                    </a>
+                    <p class="text-white/90 text-sm">© 2026 Copywriting Expert Academy | Все права защищены</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+                    <a href="privacy.html" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Политика конфиденциальности
+                    </a>
+                    <a href="https://t.me/shundyquru" target="_blank" rel="noopener" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Контакты: @shundyquru
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== КОНФИГУРАЦИЯ =====
+        // Ссылка на страницу оплаты (куда перенаправлять при повторной попытке)
+        const PAYMENT_PAGE_URL = 'payment.html';
+        
+        // ===== ЗАПОЛНЕНИЕ ДАННЫХ ПОПЫТКИ =====
+        function populateAttemptData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            const email = urlParams.get('email') || localStorage.getItem('customerEmail') || 'не указан';
+            const attemptId = urlParams.get('attempt_id') || generateAttemptId();
+            const reason = urlParams.get('reason') || '';
+            
+            // Заполняем данные
+            document.getElementById('attemptEmail').textContent = email;
+            document.getElementById('attemptId').textContent = attemptId;
+            document.getElementById('supportAttemptId').textContent = attemptId;
+            document.getElementById('attemptDate').textContent = new Date().toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Если есть конкретная причина отказа, показываем её
+            if (reason) {
+                showSpecificReason(reason);
+            }
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('lastFailedAttempt', attemptId);
+            localStorage.setItem('lastFailedEmail', email);
+        }
+        
+        function generateAttemptId() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const random = Math.floor(Math.random() * 9000) + 1000;
+            return `#CW-FAILED-${year}-${random}`;
+        }
+        
+        function showSpecificReason(reason) {
+            const reasons = {
+                'insufficient_funds': 'Недостаточно средств на карте',
+                'invalid_card': 'Неверные данные карты',
+                'card_blocked': 'Карта заблокирована для онлайн-платежей',
+                'limit_exceeded': 'Превышен лимит операций',
+                'technical_error': 'Технический сбой платежной системы',
+                'fraud_suspected': 'Платеж отклонен службой безопасности'
+            };
+            
+            const reasonText = reasons[reason] || reason;
+            
+            // Добавляем блок с конкретной причиной
+            const detailsCard = document.querySelector('.bg-white.rounded-2xl');
+            const specificReasonBlock = document.createElement('div');
+            specificReasonBlock.className = 'bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg p-4 mb-6';
+            specificReasonBlock.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-yellow-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    <div>
+                        <div class="font-bold text-yellow-900 mb-1">Причина отказа:</div>
+                        <div class="text-yellow-800">${reasonText}</div>
+                    </div>
+                </div>
+            `;
+            
+            // Вставляем после первого блока
+            const firstBlock = detailsCard.querySelector('.bg-red-50');
+            firstBlock.after(specificReasonBlock);
+        }
+        
+        // Заполняем данные при загрузке
+        populateAttemptData();
+        
+        // ===== ОБРАБОТКА КНОПКИ "ПОПРОБОВАТЬ СНОВА" =====
+        const retryButton = document.getElementById('retryButton');
+        retryButton.addEventListener('click', function(e) {
+            // Добавляем email в URL для автозаполнения
+            const email = localStorage.getItem('customerEmail') || '';
+            const name = localStorage.getItem('customerName') || '';
+            
+            let url = PAYMENT_PAGE_URL;
+            const params = [];
+            if (email) params.push(`email=${encodeURIComponent(email)}`);
+            if (name) params.push(`name=${encodeURIComponent(name)}`);
+            
+            if (params.length > 0) {
+                url += '?' + params.join('&');
+            }
+            
+            window.location.href = url;
+        });
+        
+        // ===== АНИМАЦИЯ ПОЯВЛЕНИЯ =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Добавляем класс shake к иконке ошибки через 2 секунды для привлечения внимания
+            setTimeout(() => {
+                const errorCircle = document.querySelector('.error-circle');
+                errorCircle.classList.add('shake');
+                setTimeout(() => errorCircle.classList.remove('shake'), 500);
+            }, 2000);
+        });
+        
+        // ===== ОТСЛЕЖИВАНИЕ ПОВТОРНОЙ ПОПЫТКИ =====
+        console.log('Страница неуспешной оплаты загружена');
+        console.log('Номер попытки:', document.getElementById('attemptId').textContent);
+    </script>
+</body>
+</html>
