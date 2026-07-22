@@ -1,6 +1,287 @@
-// В начале payment.html
-const customerName = localStorage.getItem('customerName');
-const customerEmail = localStorage.getItem('customerEmail');
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата — CopywritingExpert</title>
+    <meta name="description" content="Оплата методички по копирайтингу">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1A1A2E',
+                            darker: '#16213E',
+                            orange: '#FF8C00',
+                            yellow: '#FFD700',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #FF8C00 0%, #FFA500 50%, #FFD700 100%);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #FF7F00 0%, #E67300 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+        }
+        
+        .payment-method {
+            border: 2px solid #E5E7EB;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .payment-method:hover {
+            border-color: #FF8C00;
+        }
+        .payment-method.selected {
+            border-color: #FF8C00;
+            background: #FFF5E6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
 
-// Используйте эти данные при создании платежа
-console.log('Клиент:', customerName, customerEmail);
+    <!-- HEADER -->
+    <header class="bg-brand-dark/95 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                <span class="text-brand-orange font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+            </a>
+            <a href="index.html" class="text-white/80 hover:text-white text-sm font-medium">← Вернуться</a>
+        </div>
+    </header>
+
+    <!-- PAYMENT SECTION -->
+    <section class="py-16">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-8">
+                <h1 class="text-brand-dark font-serif font-bold text-3xl md:text-4xl mb-2">
+                    Оформление оплаты
+                </h1>
+                <p class="text-gray-600">
+                    Проверьте данные и выберите способ оплаты
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-8 md:p-10 shadow-xl">
+                <!-- Данные клиента -->
+                <div class="bg-gray-50 rounded-xl p-6 mb-8">
+                    <h2 class="font-bold text-brand-dark mb-4 text-lg">Данные заказа:</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Имя:</span>
+                            <span class="font-semibold text-brand-dark" id="displayName">—</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Email:</span>
+                            <span class="font-semibold text-brand-dark" id="displayEmail">—</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-3 border-t">
+                            <span class="text-gray-600">Товар:</span>
+                            <span class="font-semibold text-brand-dark">Методичка "Копирайтинг — Двигатель Продукта"</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Сумма:</span>
+                            <span class="font-bold text-brand-orange text-2xl">499 руб.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Способы оплаты -->
+                <h2 class="font-bold text-brand-dark mb-4 text-lg">Выберите способ оплаты:</h2>
+                <div class="space-y-3 mb-8">
+                    <div class="payment-method rounded-lg p-4 flex items-center gap-4" onclick="selectPayment(this, 'card')">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">💳</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-semibold text-brand-dark">Банковская карта</div>
+                            <div class="text-sm text-gray-500">Visa, Mastercard, МИР</div>
+                        </div>
+                        <div class="text-sm text-gray-500">Комиссия ~2-3%</div>
+                    </div>
+                    
+                    <div class="payment-method rounded-lg p-4 flex items-center gap-4" onclick="selectPayment(this, 'sbp')">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">⚡</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-semibold text-brand-dark">СБП (Система быстрых платежей)</div>
+                            <div class="text-sm text-gray-500">Мгновенный перевод</div>
+                        </div>
+                        <div class="text-sm text-gray-500">Комиссия ~0.5%</div>
+                    </div>
+                    
+                    <div class="payment-method rounded-lg p-4 flex items-center gap-4" onclick="selectPayment(this, 'wallet')">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">👛</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-semibold text-brand-dark">Электронный кошелек</div>
+                            <div class="text-sm text-gray-500">ЮMoney, QIWI</div>
+                        </div>
+                        <div class="text-sm text-gray-500">Комиссия ~3-5%</div>
+                    </div>
+                </div>
+                
+                <!-- Информация о комиссии -->
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg p-4 mb-8">
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">💡</span>
+                        <div>
+                            <div class="font-bold text-yellow-900 mb-1">О комиссии</div>
+                            <div class="text-yellow-800 text-sm">
+                                Комиссия платежной системы оплачивается дополнительно к стоимости товара. 
+                                Точный размер комиссии будет показан на странице оплаты перед подтверждением платежа.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Кнопка оплаты -->
+                <button id="payBtn" onclick="processPayment()" class="btn-primary w-full text-white px-8 py-4 rounded-lg font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Выберите способ оплаты
+                </button>
+                
+                <div class="mt-6 text-center text-sm text-gray-500 space-y-2">
+                    <div> Оплата защищена SSL-шифрованием</div>
+                    <div>⚡ Методичка придет на email сразу после оплаты</div>
+                    <div>✅ Гарантия возврата 7 дней</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-gradient py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <a href="index.html" class="inline-block mb-2">
+                        <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                        <span class="text-brand-dark font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+                    </a>
+                    <p class="text-white/90 text-sm">© 2026 Copywriting Expert Academy | Все права защищены</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+                    <a href="privacy.html" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Политика конфиденциальности
+                    </a>
+                    <a href="https://t.me/shundyquru" target="_blank" rel="noopener" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Контакты: @shundyquru
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== ПОЛУЧЕНИЕ ДАННЫХ ИЗ URL =====
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerName = urlParams.get('name') || 'Не указано';
+        const customerEmail = urlParams.get('email') || 'Не указано';
+        
+        // Отображаем данные
+        document.getElementById('displayName').textContent = customerName;
+        document.getElementById('displayEmail').textContent = customerEmail;
+        
+        // ===== ВЫБОР СПОСОБА ОПЛАТЫ =====
+        let selectedPayment = null;
+        
+        function selectPayment(element, method) {
+            // Убираем выделение со всех
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Выделяем выбранный
+            element.classList.add('selected');
+            selectedPayment = method;
+            
+            // Активируем кнопку
+            const payBtn = document.getElementById('payBtn');
+            payBtn.disabled = false;
+            payBtn.textContent = `Оплатить 499 руб. через ${getMethodLabel(method)} →`;
+        }
+        
+        function getMethodLabel(method) {
+            const labels = {
+                'card': 'карту',
+                'sbp': 'СБП',
+                'wallet': 'кошелек'
+            };
+            return labels[method] || 'неизвестный способ';
+        }
+        
+        // ===== ОБРАБОТКА ОПЛАТЫ =====
+        function processPayment() {
+            if (!selectedPayment) {
+                alert('Пожалуйста, выберите способ оплаты');
+                return;
+            }
+            
+            // Здесь будет интеграция с платежной системой
+            // Пример для ЮKassa:
+            /*
+            const paymentData = {
+                amount: 499,
+                currency: 'RUB',
+                description: `Методичка для ${customerName}`,
+                email: customerEmail,
+                payment_method: selectedPayment,
+                return_url: 'https://ваш-сайт.ru/success.html'
+            };
+            
+            // Отправляем на сервер для создания платежа
+            fetch('/api/create-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(paymentData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = data.confirmation_url;
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка. Попробуйте еще раз.');
+            });
+            */
+            
+            // Пока просто показываем сообщение
+            alert(`Переход на оплату...\n\nИмя: ${customerName}\nEmail: ${customerEmail}\nСпособ: ${getMethodLabel(selectedPayment)}\n\n(Здесь будет интеграция с платежной системой)`);
+        }
+    </script>
+</body>
+</html>
