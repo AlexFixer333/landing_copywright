@@ -4,65 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Оплата — CopywritingExpert</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .btn-primary {
-            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
-        }
-        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-        .payment-method {
-            border: 2px solid #E5E7EB;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .payment-method:hover { border-color: #FF8C00; }
-        .payment-method.selected {
-            border-color: #FF8C00;
-            background: #FFF5E6;
-        }
-    </style>
 </head>
 <body class="bg-gray-50">
 
     <header class="bg-[#1A1A2E] text-white py-4">
-        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
-            <div>
-                <span class="font-serif text-2xl font-bold">Copywriting</span>
-                <span class="font-serif text-2xl font-bold italic text-[#FF8C00]">Expert</span>
-            </div>
-            <a href="index.html" class="text-white/80 hover:text-white">← Вернуться</a>
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="font-[Playfair_Display] text-3xl font-bold">Copywriting</span>
+            <span class="font-[Playfair_Display] text-3xl font-bold italic text-[#FF8C00]">Expert</span>
         </div>
     </header>
 
     <section class="py-16">
         <div class="max-w-2xl mx-auto px-6">
-            <h1 class="font-serif text-3xl font-bold text-center mb-8">Оформление оплаты</h1>
+            <h1 class="text-3xl font-bold text-center mb-8">Оформление оплаты</h1>
             
             <div class="bg-white rounded-2xl p-8 shadow-xl">
                 <!-- Данные заказа -->
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
-                    <h2 class="font-bold mb-4">Данные заказа:</h2>
-                    <div class="space-y-2">
-                        <div class="flex justify-between">
+                    <h2 class="font-bold mb-4 text-lg">Данные заказа:</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
                             <span class="text-gray-600">Имя:</span>
-                            <span class="font-semibold" id="displayName">—</span>
+                            <span class="font-semibold text-gray-900" id="displayName">Загрузка...</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="flex justify-between items-center">
                             <span class="text-gray-600">Email:</span>
-                            <span class="font-semibold" id="displayEmail">—</span>
+                            <span class="font-semibold text-gray-900" id="displayEmail">Загрузка...</span>
                         </div>
-                        <div class="flex justify-between pt-3 border-t">
+                        <div class="flex justify-between items-center pt-3 border-t">
                             <span class="text-gray-600">Сумма:</span>
                             <span class="font-bold text-[#FF8C00] text-2xl">499 руб.</span>
                         </div>
@@ -70,16 +41,16 @@
                 </div>
 
                 <!-- Способы оплаты -->
-                <h2 class="font-bold mb-4">Выберите способ оплаты:</h2>
+                <h2 class="font-bold mb-4 text-lg">Выберите способ оплаты:</h2>
                 <div class="space-y-3 mb-6">
-                    <div class="payment-method rounded-lg p-4 flex items-center gap-4" onclick="selectPayment('card')">
+                    <div class="payment-method border-2 border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-[#FF8C00] transition-all" onclick="selectPayment('card', this)">
                         <span class="text-2xl">💳</span>
                         <div class="flex-1">
                             <div class="font-semibold">Банковская карта</div>
                             <div class="text-sm text-gray-500">Visa, Mastercard, МИР</div>
                         </div>
                     </div>
-                    <div class="payment-method rounded-lg p-4 flex items-center gap-4" onclick="selectPayment('sbp')">
+                    <div class="payment-method border-2 border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-[#FF8C00] transition-all" onclick="selectPayment('sbp', this)">
                         <span class="text-2xl">⚡</span>
                         <div class="flex-1">
                             <div class="font-semibold">СБП</div>
@@ -89,13 +60,15 @@
                 </div>
 
                 <!-- Кнопка -->
-                <button id="payBtn" onclick="processPayment()" class="btn-primary w-full text-white py-4 rounded-lg font-bold text-lg" disabled>
+                <button id="payBtn" onclick="processPayment()" class="w-full bg-[#FF8C00] hover:bg-[#FF7F00] text-white font-bold py-4 rounded-lg text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     Выберите способ оплаты
                 </button>
 
-                <p class="text-sm text-gray-500 text-center mt-4">
-                     Оплата защищена • ⚡ Методичка придет на email • ✅ Гарантия 7 дней
-                </p>
+                <div class="mt-6 flex items-center justify-center gap-4 text-sm text-gray-600">
+                    <span>🔒 Оплата защищена</span>
+                    <span>•</span>
+                    <span>⚡ Методичка придет на email</span>
+                </div>
             </div>
         </div>
     </section>
@@ -105,21 +78,38 @@
         const SHOP_ID = '123456'; // Замените на ваш Shop ID
         const SECRET_KEY = 'test_Y9K3mN7pQ2wR5tU8vX1zA4bC6dE0fG'; // Замените на ваш Secret Key
 
-        // Получаем данные из URL
+        // ===== ПОЛУЧЕНИЕ ДАННЫХ =====
         const urlParams = new URLSearchParams(window.location.search);
-        const customerName = urlParams.get('name') || 'Клиент';
-        const customerEmail = urlParams.get('email') || '';
+        let customerName = urlParams.get('name');
+        let customerEmail = urlParams.get('email');
 
-        document.getElementById('displayName').textContent = customerName;
-        document.getElementById('displayEmail').textContent = customerEmail;
+        // Если данных нет в URL, пробуем получить из localStorage
+        if (!customerName || !customerEmail) {
+            // Показываем ошибку и возвращаем на главную
+            alert('Ошибка: данные заказа не найдены. Пожалуйста, заполните форму на главной странице.');
+            window.location.href = 'index.html';
+        } else {
+            // Отображаем данные
+            document.getElementById('displayName').textContent = customerName;
+            document.getElementById('displayEmail').textContent = customerEmail;
+        }
 
         let selectedPayment = null;
 
-        function selectPayment(method) {
+        function selectPayment(method, element) {
             selectedPayment = method;
-            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
             
+            // Убираем выделение со всех
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('border-[#FF8C00]', 'bg-orange-50');
+                el.classList.add('border-gray-200');
+            });
+            
+            // Выделяем выбранный
+            element.classList.remove('border-gray-200');
+            element.classList.add('border-[#FF8C00]', 'bg-orange-50');
+            
+            // Активируем кнопку
             const btn = document.getElementById('payBtn');
             btn.disabled = false;
             btn.textContent = 'Оплатить 499 руб. →';
@@ -130,7 +120,7 @@
         }
 
         async function processPayment() {
-            if (!selectedPayment) return;
+            if (!selectedPayment || !customerName || !customerEmail) return;
 
             const btn = document.getElementById('payBtn');
             btn.disabled = true;
@@ -139,7 +129,17 @@
             try {
                 const orderId = generateOrderId();
                 
-                // Создаем платеж в ЮKassa
+                // Сохраняем данные в localStorage для использования после оплаты
+                localStorage.setItem('currentOrder', JSON.stringify({
+                    order_id: orderId,
+                    name: customerName,
+                    email: customerEmail,
+                    amount: 499,
+                    payment_method: selectedPayment,
+                    date: new Date().toISOString(),
+                    status: 'pending'
+                }));
+                
                 const response = await fetch('https://api.yookassa.ru/v3/payments', {
                     method: 'POST',
                     headers: {
@@ -170,7 +170,6 @@
                 const data = await response.json();
                 
                 if (data.confirmation?.confirmation_url) {
-                    // Перенаправляем на оплату в ЮKassa
                     window.location.href = data.confirmation.confirmation_url;
                 } else {
                     throw new Error('Нет ссылки на оплату');
