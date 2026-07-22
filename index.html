@@ -823,75 +823,21 @@
         });
 
         // Form submission
-        // ===== ВАЛИДАЦИЯ И ПЕРЕХОД НА ОПЛАТУ =====
-const checkoutForm = document.getElementById('checkoutForm');
-const payButton = document.getElementById('payButton');
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const nameError = document.getElementById('nameError');
-const emailError = document.getElementById('emailError');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const successMessage = document.getElementById('successMessage');
 
-// Функция валидации
-function validateForm() {
-    let isValid = true;
-    
-    // Сброс ошибок
-    nameError.classList.add('hidden');
-    emailError.classList.add('hidden');
-    nameInput.classList.remove('border-red-500');
-    emailInput.classList.remove('border-red-500');
-    
-    // Проверка имени
-    if (!nameInput.value.trim()) {
-        nameError.classList.remove('hidden');
-        nameInput.classList.add('border-red-500');
-        isValid = false;
-    }
-    
-    // Проверка email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
-        emailError.classList.remove('hidden');
-        emailInput.classList.add('border-red-500');
-        isValid = false;
-    }
-    
-    return isValid;
-}
-
-// Обработка клика по кнопке оплаты
-payButton.addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    // Валидация формы
-    if (!validateForm()) {
-        // Прокрутка к первой ошибке
-        const firstError = document.querySelector('.border-red-500');
-        if (firstError) {
-            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            firstError.focus();
-        }
-        return;
-    }
-    
-    // Сохраняем данные в localStorage для передачи на страницу оплаты
-    localStorage.setItem('customerName', nameInput.value.trim());
-    localStorage.setItem('customerEmail', emailInput.value.trim());
-    
-    // Переход на страницу оплаты
-    window.location.href = 'payment.html';
-});
-
-// Убираем ошибки при вводе
-nameInput.addEventListener('input', function() {
-    nameError.classList.add('hidden');
-    nameInput.classList.remove('border-red-500');
-});
-
-emailInput.addEventListener('input', function() {
-    emailError.classList.add('hidden');
-    emailInput.classList.remove('border-red-500');
-});
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Пожалуйста, введите корректный email адрес');
+                return;
+            }
             
             // Here you would integrate with payment system
             // For now, simulate success
