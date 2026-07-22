@@ -1,24 +1,482 @@
-<script>
-    // Получаем данные из URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const email = urlParams.get('email') || '';
-    const orderId = urlParams.get('order_id') || '';
-    const name = urlParams.get('name') || '';
-
-    // Заполняем данные на странице
-    if (email) document.getElementById('orderEmail').textContent = email;
-    if (orderId) document.getElementById('orderId').textContent = '#' + orderId;
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата прошла успешно — CopywritingExpert</title>
+    <meta name="description" content="Спасибо за покупку методички по копирайтингу">
     
-    // Устанавливаем дату
-    document.getElementById('orderDate').textContent = new Date().toLocaleDateString('ru-RU', {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    });
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1A1A2E',
+                            darker: '#16213E',
+                            orange: '#FF8C00',
+                            yellow: '#FFD700',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #FF8C00 0%, #FFA500 50%, #FFD700 100%);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #FF7F00 0%, #E67300 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(26, 26, 46, 0.4);
+        }
+        
+        @keyframes successPulse {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes checkmark {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success-circle {
+            animation: successPulse 0.8s ease-out forwards;
+        }
+        
+        .checkmark-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: checkmark 0.6s ease-out 0.4s forwards;
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confettiFall 3s ease-in forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF7F00 100%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
 
-    // Функция скачивания методички
-    function downloadMethodichka() {
-        // ССЫЛКА НА ВАШ PDF ФАЙЛ
-        const pdfUrl = 'https://drive.google.com/uc?export=download&id=ВАШ_FILE_ID';
-        window.open(pdfUrl, '_blank');
-    }
-</script>
+    <!-- HEADER -->
+    <header class="bg-brand-dark/95 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center">
+            <a href="index.html" class="flex items-center">
+                <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                <span class="text-brand-orange font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- SUCCESS SECTION -->
+    <section class="hero-gradient min-h-screen flex items-center py-20 relative overflow-hidden">
+        <!-- Confetti container -->
+        <div id="confetti-container"></div>
+        
+        <!-- Background decorations -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-brand-orange rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-brand-yellow rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <!-- Success Icon -->
+            <div class="flex justify-center mb-8 fade-in-up">
+                <div class="success-circle w-32 h-32 bg-green-500 rounded-full flex items-center justify-center shadow-2xl">
+                    <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path class="checkmark-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Main Message -->
+            <div class="text-center mb-12 fade-in-up delay-1">
+                <h1 class="text-white font-serif font-bold text-4xl md:text-6xl mb-4">
+                    Оплата прошла успешно!
+                </h1>
+                <p class="text-white/80 text-xl md:text-2xl">
+                    Спасибо за покупку, <span id="customerName">друг</span>!
+                </p>
+            </div>
+            
+            <!-- Download Card -->
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-2xl mb-8 fade-in-up delay-2">
+                <div class="text-center mb-8">
+                    <div class="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold mb-4">
+                        ✓ ОПЛАТА ПОДТВЕРЖДЕНА
+                    </div>
+                    <h2 class="font-serif font-bold text-3xl text-brand-dark mb-2">
+                        Ваша методичка готова к скачиванию
+                    </h2>
+                    <p class="text-gray-600 text-lg">
+                        Копирайтинг — Двигатель Продукта
+                    </p>
+                </div>
+                
+                <!-- Order Details -->
+                <div class="bg-gray-50 rounded-xl p-6 mb-8">
+                    <h3 class="font-bold text-brand-dark mb-4 text-lg">Детали заказа:</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Номер заказа</div>
+                            <div class="font-mono font-bold text-brand-dark" id="orderId">#CW-2026-001</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Дата оплаты</div>
+                            <div class="font-bold text-brand-dark" id="orderDate">—</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Email для получения</div>
+                            <div class="font-bold text-brand-dark" id="orderEmail">—</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Сумма оплаты</div>
+                            <div class="font-bold text-brand-orange text-xl">499 руб.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Download Button -->
+                <div class="text-center mb-6">
+                    <button onclick="downloadMethodichka()" id="downloadBtn" class="btn-primary inline-block text-white px-12 py-5 rounded-xl font-bold text-xl shadow-lg cursor-pointer">
+                        📥 Скачать методичку (PDF)
+                    </button>
+                    <p class="text-sm text-gray-500 mt-4">
+                        Файл также отправлен на ваш email
+                    </p>
+                </div>
+                
+                <!-- Alternative Download Info -->
+                <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <div class="font-bold text-blue-900 mb-1">Не получили письмо?</div>
+                            <div class="text-blue-800 text-sm">
+                                Проверьте папку "Спам" или напишите нам в Telegram: <a href="https://t.me/shundyquru" target="_blank" class="underline font-semibold">@shundyquru</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- What's Next Section -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-10 border border-white/20 mb-8 fade-in-up delay-3">
+                <h2 class="text-white font-serif font-bold text-3xl mb-8 text-center">Что делать дальше?</h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Скачайте методичку</h3>
+                            <p class="text-white/70">Нажмите кнопку выше и сохраните PDF на ваше устройство</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Начните с первой главы</h3>
+                            <p class="text-white/70">Рекомендуем читать последовательно — каждая глава строится на предыдущей</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Выполняйте упражнения</h3>
+                            <p class="text-white/70">После каждой главы есть практические задания — не пропускайте их!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="step-number">4</div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Используйте демо-приложение</h3>
+                            <p class="text-white/70">Закрепляйте навыки в интерактивном тренажере</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bonus Cards -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8 fade-in-up delay-4">
+                <!-- Demo App Card -->
+                <div class="bg-white rounded-2xl p-6 card-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center">
+                            <span class="text-2xl">📱</span>
+                        </div>
+                        <h3 class="font-bold text-brand-dark text-lg">Демо-приложение</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Интерактивный тренажер для отработки навыков копирайтинга
+                    </p>
+                    <a href="https://demo.copywritingexpert.com" target="_blank" class="btn-secondary inline-block text-white px-6 py-3 rounded-lg font-semibold text-sm">
+                        Открыть приложение →
+                    </a>
+                </div>
+                
+                <!-- Telegram Community Card -->
+                <div class="bg-white rounded-2xl p-6 card-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <span class="text-2xl">✈️</span>
+                        </div>
+                        <h3 class="font-bold text-brand-dark text-lg">Telegram-канал</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Присоединяйтесь к сообществу копирайтеров и получайте полезные материалы
+                    </p>
+                    <a href="https://t.me/shundyquru" target="_blank" class="btn-secondary inline-block text-white px-6 py-3 rounded-lg font-semibold text-sm">
+                        Подписаться →
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Support Section -->
+            <div class="bg-white rounded-2xl p-8 text-center fade-in-up delay-5">
+                <h3 class="font-serif font-bold text-2xl text-brand-dark mb-3">Нужна помощь?</h3>
+                <p class="text-gray-600 mb-6">
+                    Если у вас возникли вопросы по методичке или технические проблемы — мы всегда на связи
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://t.me/shundyquru" target="_blank" class="inline-flex items-center justify-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                        <span>✈️</span>
+                        <span>Написать в Telegram</span>
+                    </a>
+                    <a href="mailto:support@copywritingexpert.com" class="inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                        <span>📧</span>
+                        <span>Написать на email</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Guarantee Reminder -->
+            <div class="mt-8 text-center fade-in-up delay-5">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">
+                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-white text-sm">Гарантия возврата 7 дней активна</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-gradient py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <a href="index.html" class="inline-block mb-2">
+                        <span class="text-white font-serif text-2xl md:text-3xl font-bold">Copywriting</span>
+                        <span class="text-brand-dark font-serif text-2xl md:text-3xl font-bold italic">Expert</span>
+                    </a>
+                    <p class="text-white/90 text-sm">© 2026 Copywriting Expert Academy | Все права защищены</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+                    <a href="privacy.html" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Политика конфиденциальности
+                    </a>
+                    <a href="https://t.me/shundyquru" target="_blank" rel="noopener" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Контакты: @shundyquru
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== КОНФИГУРАЦИЯ =====
+        // Замените на реальную ссылку на PDF методички
+        const METHODICHKA_URL = 'https://drive.google.com/uc?export=download&id=ВАШ_FILE_ID';
+        
+        // ===== ГЕНЕРАЦИЯ КОНФЕТТИ =====
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#FF8C00', '#FFD700', '#4CAF50', '#2196F3', '#E91E63', '#9C27B0'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+        
+        window.addEventListener('load', createConfetti);
+        
+        // ===== ЗАПОЛНЕНИЕ ДАННЫХ ЗАКАЗА =====
+        function populateOrderData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            const name = urlParams.get('name') || localStorage.getItem('customerName') || 'друг';
+            const email = urlParams.get('email') || localStorage.getItem('customerEmail') || 'your@email.com';
+            const orderId = urlParams.get('order_id') || localStorage.getItem('lastOrderId') || generateOrderId();
+            
+            document.getElementById('customerName').textContent = name.split(' ')[0];
+            document.getElementById('orderEmail').textContent = email;
+            document.getElementById('orderId').textContent = orderId;
+            document.getElementById('orderDate').textContent = new Date().toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            localStorage.setItem('customerName', name);
+            localStorage.setItem('customerEmail', email);
+            localStorage.setItem('lastOrderId', orderId);
+        }
+        
+        function generateOrderId() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const random = Math.floor(Math.random() * 9000) + 1000;
+            return `#CW-${year}-${random}`;
+        }
+        
+        populateOrderData();
+        
+        // ===== СКАЧИВАНИЕ МЕТОДИЧКИ =====
+        function downloadMethodichka() {
+            const btn = document.getElementById('downloadBtn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '⏳ Загрузка...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                window.open(METHODICHKA_URL, '_blank');
+                
+                btn.innerHTML = '✓ Скачано!';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('bg-green-500');
+                
+                showNotification('Скачивание началось! Проверьте папку "Загрузки"');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('bg-green-500');
+                    btn.classList.add('btn-primary');
+                }, 3000);
+            }, 500);
+        }
+        
+        // ===== УВЕДОМЛЕНИЯ =====
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-6 right-6 bg-green-500 text-white px-6 py-4 rounded-lg shadow-2xl z-50 flex items-center gap-3';
+            notification.innerHTML = `
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-semibold">${message}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => notification.remove(), 500);
+            }, 4000);
+        }
+        
+        setTimeout(() => {
+            showNotification('Нажмите кнопку, чтобы скачать методичку');
+        }, 1000);
+    </script>
+</body>
+</html>
