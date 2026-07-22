@@ -6,7 +6,6 @@
     <title>Оплата прошла успешно — CopywritingExpert</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="bg-gray-50">
 
@@ -20,7 +19,7 @@
     <section class="py-20">
         <div class="max-w-2xl mx-auto px-6 text-center">
             <!-- Green Checkmark -->
-            <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+            <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                 </svg>
@@ -48,7 +47,7 @@
                      Скачать методичку (PDF)
                 </button>
                 
-                <p class="text-sm text-gray-500 mt-4">✓ Файл также отправлен на ваш email</p>
+                <p class="text-sm text-gray-500 mt-4">Нажмите кнопку выше, чтобы скачать файл</p>
             </div>
             
             <!-- Support -->
@@ -63,21 +62,14 @@
 
     <script>
         // ===== НАСТРОЙКИ =====
+        
         // 1. ССЫЛКА НА ВАШ PDF ФАЙЛ (Google Drive)
-        const METHODICHKA_URL = 'https://drive.google.com/uc?export=download&id=ВАШ_FILE_ID';
+        // Замените ВАШ_FILE_ID на реальный ID файла
+        const METHODICHKA_URL = 'https://drive.google.com/file/d/1Iq5ntSS9nIjtL1uCa54G6pqjg20r-Lvk/view?usp=sharing';
         
-        // 2. EMAILJS (настройте на emailjs.com)
-        const EMAILJS_PUBLIC_KEY = 'your_public_key';
-        const EMAILJS_SERVICE_ID = 'your_service_id';
-        const EMAILJS_TEMPLATE_ID = 'your_template_id';
-        
-        // 3. GOOGLE APPS SCRIPT URL (из шага 5)
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/ВАШ_СКРИПТ_ID/exec';
-        
-        // ===== ИНИЦИАЛИЗАЦИЯ EMAILJS =====
-        (function() {
-            emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-        })();
+        // 2. GOOGLE APPS SCRIPT URL (для сохранения заказов в таблицу)
+        // Замените на ваш URL из Apps Script
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKycGaxaHMkvbH1edaN4_BzBl9ADVk4eJhpdF5pwCtuk71gztfe91g5dWJNHQNUMqr/exec';
         
         // ===== ПОЛУЧЕНИЕ ДАННЫХ ИЗ URL =====
         const urlParams = new URLSearchParams(window.location.search);
@@ -90,22 +82,11 @@
         if (name) document.getElementById('orderName').textContent = name;
         if (orderId) document.getElementById('orderId').textContent = orderId;
         
-        // ===== ОТПРАВКА EMAIL И СОХРАНЕНИЕ ЗАКАЗА =====
-        async function processOrder() {
+        // ===== СОХРАНЕНИЕ ЗАКАЗА В GOOGLE ТАБЛИЦУ =====
+        async function saveOrder() {
             if (!email || !name || !orderId) return;
             
             try {
-                // 1. Отправляем email клиенту (через EmailJS)
-                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                    to_email: email,
-                    to_name: name,
-                    order_id: orderId,
-                    methodichka_link: METHODICHKA_URL
-                });
-                
-                console.log('✅ Email отправлен клиенту');
-                
-                // 2. Сохраняем заказ в Google Таблицу (через Apps Script)
                 await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -126,19 +107,19 @@
                 console.log('✅ Заказ сохранен в Google Таблицу');
                 
             } catch (error) {
-                console.error(' Ошибка:', error);
+                console.error(' Ошибка сохранения заказа:', error);
             }
         }
         
-        // Запускаем обработку заказа при загрузке страницы
-        window.addEventListener('load', processOrder);
+        // Запускаем сохранение при загрузке страницы
+        window.addEventListener('load', saveOrder);
         
         // ===== ФУНКЦИЯ СКАЧИВАНИЯ МЕТОДИЧКИ =====
         function downloadMethodichka() {
             const btn = document.getElementById('downloadBtn');
             const originalText = btn.innerHTML;
             
-            btn.innerHTML = ' Загрузка...';
+            btn.innerHTML = '⏳ Загрузка...';
             btn.disabled = true;
             
             setTimeout(() => {
@@ -146,12 +127,12 @@
                 
                 btn.innerHTML = '✓ Скачано!';
                 btn.classList.remove('bg-[#FF8C00]', 'hover:bg-[#FF7F00]');
-                btn.classList.add('bg-green-500', 'hover:bg-green-600');
+                btn.classList.add('bg-green-500');
                 
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    btn.classList.remove('bg-green-500', 'hover:bg-green-600');
+                    btn.classList.remove('bg-green-500');
                     btn.classList.add('bg-[#FF8C00]', 'hover:bg-[#FF7F00]');
                 }, 3000);
             }, 500);
