@@ -123,26 +123,23 @@
             
             <!-- Main Message -->
             <div class="text-center mb-12 fade-in-up delay-1">
+                <div class="inline-block bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-bold mb-4">
+                    ✕ ПЛАТЕЖ ОТМЕНЕН
+                </div>
                 <h1 class="text-white font-serif font-bold text-4xl md:text-5xl mb-4">
-                    Оплата не прошла
+                    Что-то пошло не так
                 </h1>
                 <p class="text-white/80 text-xl md:text-2xl">
-                    К сожалению, платеж не был завершен
+                    Не переживайте, деньги не были списаны
                 </p>
             </div>
             
             <!-- Error Card -->
             <div class="bg-white rounded-2xl p-8 md:p-12 shadow-2xl mb-8 fade-in-up delay-2">
                 <div class="text-center mb-8">
-                    <div class="inline-block bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-bold mb-4">
-                        ✕ ПЛАТЕЖ ОТМЕНЕН
-                    </div>
                     <h2 class="font-serif font-bold text-3xl text-brand-dark mb-2">
-                        Что-то пошло не так
+                        Оплата не прошла
                     </h2>
-                    <p class="text-gray-600 text-lg">
-                        Не переживайте, деньги не были списаны
-                    </p>
                 </div>
                 
                 <!-- Order Details -->
@@ -150,8 +147,8 @@
                     <h3 class="font-bold text-brand-dark mb-4 text-lg">Детали заказа:</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <div class="text-sm text-gray-500 mb-1">Номер заказа</div>
-                            <div class="font-mono font-bold text-brand-dark" id="userOrderId">—</div>
+                            <div class="text-sm text-gray-500 mb-1">Имя</div>
+                            <div class="font-bold text-brand-dark" id="userName">—</div>
                         </div>
                         <div>
                             <div class="text-sm text-gray-500 mb-1">Email</div>
@@ -203,7 +200,7 @@
                     <a href="index.html" class="btn-primary flex-1 text-white text-center px-8 py-4 rounded-xl font-bold text-lg shadow-lg">
                         Попробовать снова
                     </a>
-                    <a href="https://t.me/shundyquru" target="_blank" rel="noopener" class="btn-secondary flex-1 text-white text-center px-8 py-4 rounded-xl font-bold text-lg">
+                    <a href="https://t.me/shundyguru" target="_blank" rel="noopener" class="btn-secondary flex-1 text-white text-center px-8 py-4 rounded-xl font-bold text-lg">
                         Написать в поддержку
                     </a>
                 </div>
@@ -212,7 +209,7 @@
                 <div class="text-center text-sm text-gray-500">
                     <p>Если проблема не решается, напишите нам в Telegram</p>
                     <p class="mt-1">
-                        <a href="https://t.me/shundyquru" target="_blank" class="text-brand-orange hover:underline font-semibold">@shundyquru</a>
+                        <a href="https://t.me/shundyguru" target="_blank" class="text-brand-orange hover:underline font-semibold">@shundyguru</a>
                     </p>
                 </div>
             </div>
@@ -237,16 +234,6 @@
                     <p class="text-white/70 text-sm">Мы всегда на связи и готовы помочь с оплатой</p>
                 </div>
             </div>
-            
-            <!-- Guarantee Reminder -->
-            <div class="text-center fade-in-up delay-3">
-                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">
-                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="text-white text-sm">Гарантия возврата 7 дней сохраняется</span>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -263,11 +250,14 @@
                 </div>
                 
                 <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-                    <a href="privacy.html" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                    <a href="https://alexfixer333.github.io/landing_copywright/privacy.html" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
                         Политика конфиденциальности
                     </a>
-                    <a href="https://t.me/shundyquru" target="_blank" rel="noopener" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
-                        Контакты: @shundyquru
+                    <a href="https://alexfixer333.github.io/landing_copywright/ofert.html" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Условия оферты
+                    </a>
+                    <a href="https://t.me/shundyguru" target="_blank" rel="noopener" class="text-white hover:text-brand-dark underline text-sm font-medium transition-colors">
+                        Контакты: @shundyguru
                     </a>
                 </div>
             </div>
@@ -277,15 +267,15 @@
     <script>
         // Получаем данные из URL
         const urlParams = new URLSearchParams(window.location.search);
-        const email = urlParams.get('email') || sessionStorage.getItem('customerEmail');
-        const orderId = urlParams.get('order_id') || sessionStorage.getItem('lastOrderId');
+        const name = urlParams.get('name') || localStorage.getItem('customerName');
+        const email = urlParams.get('email') || localStorage.getItem('customerEmail');
         
         // Заполняем данные на странице
+        if (name) {
+            document.getElementById('userName').textContent = name;
+        }
         if (email) {
             document.getElementById('userEmail').textContent = email;
-        }
-        if (orderId) {
-            document.getElementById('userOrderId').textContent = '#' + orderId;
         }
         
         // Анимация появления элементов при скролле
